@@ -11,6 +11,8 @@ public class player : MonoBehaviour
     public Transform Gun;
     public GameObject Bullet;
     public float BulletSpeed;
+    public float bulletCooldown;
+    float bulletCountdown;
     public Transform ShootPoint;
     public GameObject Grab1;
     public GameObject Grab2;
@@ -24,9 +26,10 @@ public class player : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         direction = mousePos - (Vector2)transform.position;
         transform.right = direction;
-        if (Input.GetMouseButtonDown(0)){
+        if (Input.GetMouseButtonDown(0) && bulletCountdown <= 0){
             GameObject BulletInstantiate = Instantiate(Bullet, ShootPoint.position, ShootPoint.rotation);
             BulletInstantiate.GetComponent<Rigidbody2D>().AddForce(BulletInstantiate.transform.right * BulletSpeed);
+            bulletCountdown = bulletCooldown;
         }
         if (Input.GetMouseButtonDown(1)){
             Grab1.SetActive(true);
@@ -35,6 +38,7 @@ public class player : MonoBehaviour
             Grab1.SetActive(false);
             Grab2.SetActive(false);
         }
+        bulletCountdown -= Time.deltaTime;
     }
     private void FixedUpdate(){
         body.velocity = new Vector2(horizontal * RunSpeed, vertical * RunSpeed);
