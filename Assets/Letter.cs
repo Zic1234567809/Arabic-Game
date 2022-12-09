@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Letter : MonoBehaviour{
     public GameObject GrabHelper;
-    public GameObject LetterPlace;
-    public GameObject LetterPlace2;
-    public GameObject LetterPlace3;
     public static int x;
     void Start(){
         

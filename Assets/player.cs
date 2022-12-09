@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class player : MonoBehaviour
 {
@@ -17,9 +19,25 @@ public class player : MonoBehaviour
     public GameObject Grab1;
     public GameObject Grab2;
     public GameObject GrabHelper;
+    public GameObject LetterPlace1;
+    public GameObject LetterPlace2;
+    public GameObject LetterPlace3;
+    public GameObject LetterPlace4;
+    public GameObject LetterPlace5;
+    public GameObject LetterPlace6;
+    public GameObject LetterPlace7;
+    public GameObject LetterPlace8;
+    public GameObject LetterPlace9;
+    public GameObject LetterPlace10;
+    public List<string> spawnpool = new List<string>();
+    public List<int> intList = new List<int>();
+    public TextMeshProUGUI QText;
+    private int randomItem;
     Vector2 direction;
-    void Start(){
+    void Start() {
         body = GetComponent<Rigidbody2D>();
+        randomItem = Random.Range(0, spawnpool.Count);
+        QText.text = spawnpool[randomItem];
     }
     void Update(){
         horizontal = Input.GetAxisRaw("Horizontal");
@@ -44,6 +62,47 @@ public class player : MonoBehaviour
             Gun.SetActive(true);
         }
         bulletCountdown -= Time.deltaTime;
+        if (intList[randomItem] < 1) {
+            LetterPlace1.SetActive(false);
+        } else {
+            LetterPlace1.SetActive(true);
+        } if (intList[randomItem] < 2) {
+            LetterPlace2.SetActive(false);
+        } else {
+            LetterPlace2.SetActive(true);
+        } if (intList[randomItem] < 3) {
+            LetterPlace3.SetActive(false);
+        } else {
+            LetterPlace3.SetActive(true);
+        } if (intList[randomItem] < 4) {
+            LetterPlace4.SetActive(false);
+        } else {
+            LetterPlace4.SetActive(true);
+        } if (intList[randomItem] < 5) {
+            LetterPlace5.SetActive(false);
+        } else {
+            LetterPlace5.SetActive(true);
+        } if (intList[randomItem] < 6) {
+            LetterPlace6.SetActive(false);
+        } else {
+            LetterPlace6.SetActive(true);
+        } if (intList[randomItem] < 7) {
+            LetterPlace7.SetActive(false);
+        } else {
+            LetterPlace7.SetActive(true);
+        } if (intList[randomItem] < 8) {
+            LetterPlace8.SetActive(false);
+        } else {
+            LetterPlace8.SetActive(true);
+        } if (intList[randomItem] < 9) {
+            LetterPlace9.SetActive(false);
+        } else {
+            LetterPlace9.SetActive(true);
+        } if (intList[randomItem] < 10) {
+            LetterPlace10.SetActive(false);
+        } else {
+            LetterPlace10.SetActive(true);
+        }
     }
     private void FixedUpdate(){
         body.velocity = new Vector2(horizontal * RunSpeed, vertical * RunSpeed);
