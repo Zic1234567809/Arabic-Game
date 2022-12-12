@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Letter : MonoBehaviour{
     public GameObject GrabHelper;
-    public static int x;
-
+    public int x;
+    public static int y;
     public float movementRange;
     private Vector3 desiredPos;
     public float speed;
+    private bool isGotShoot = false;
     private bool isMoving;
     public float minDistance;
     public Transform topleft;
@@ -16,38 +17,37 @@ public class Letter : MonoBehaviour{
 
     void Update(){
         StartCoroutine(Move());
-
-        if (x == 1){
+        if (y == 0){
+            x = 0;
+        }if (x == 1 && isGotShoot == true){
             transform.position = (Vector3)GrabHelper.transform.position;
             transform.rotation = GrabHelper.transform.rotation;
-        }
-        if (GrabHelper.activeInHierarchy == false){
+        }if (GrabHelper.activeInHierarchy == false){
             x = 0;
         }
     }
     private void OnTriggerEnter2D(Collider2D other){
         if (other.gameObject.layer == 7 && GrabHelper.activeInHierarchy == true){
             x = 1;
+            y = 1;
+        }if (other.gameObject.layer == 9){
+            isGotShoot = true;
         }
     }
 
-    private IEnumerator Move()
-    {
-        if(!isMoving)
-        {
+    private IEnumerator Move(){
+        if(!isMoving){
             isMoving = true;
-            while(true)
-            {
+            while(true){
                 desiredPos = new Vector3(Random.Range(-movementRange,movementRange), Random.Range(-movementRange,movementRange), 0) + transform.position;
                 if(topleft.position.x < desiredPos.x && desiredPos.x < bottomright.position.x && bottomright.position.y < desiredPos.y && desiredPos.y < topleft.position.y
                  && Vector3.Distance(transform.position, desiredPos) > minDistance)
                     break;
             }
         }
-        
-        transform.position = Vector3.MoveTowards(transform.position, desiredPos, speed * Time.deltaTime);
-        if(Vector3.Distance(transform.position, desiredPos) < 1)
-        {
+        if (isGotShoot == false){
+            transform.position = Vector3.MoveTowards(transform.position, desiredPos, speed * Time.deltaTime);
+        }if(Vector3.Distance(transform.position, desiredPos) < 1){
             yield return new WaitForSeconds(1);
             isMoving = false;
         }

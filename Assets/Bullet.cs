@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     void Update(){
         
     }
-    private void OnCollisionEnter2D(Collision2D other){
+    private void OnTriggerEnter2D(Collider2D other){
         if (other.gameObject.layer == 3 || other.gameObject.layer == 6){
             Destroy(gameObject);
         }
