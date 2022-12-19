@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Letter : MonoBehaviour{
     public GameObject GrabHelper;
-    public int x;
-    public static int y;
+    private bool IsGrab = false;
+    public static bool IsGrab1 = false;
     public float movementRange;
     private Vector3 desiredPos;
     public float speed;
     private bool isGotShoot = false;
+    public static bool isGotShoot1 = true;
     private bool isMoving;
     public float minDistance;
     public Transform topleft;
@@ -17,21 +18,24 @@ public class Letter : MonoBehaviour{
 
     void Update(){
         StartCoroutine(Move());
-        if (y == 0){
-            x = 0;
-        }if (x == 1 && isGotShoot == true){
+        if (IsGrab1 == false){
+            IsGrab = false;
+        }if (IsGrab == true && isGotShoot == true){
             transform.position = (Vector3)GrabHelper.transform.position;
             transform.rotation = GrabHelper.transform.rotation;
         }if (GrabHelper.activeInHierarchy == false){
-            x = 0;
+            IsGrab = false;
+        }if (isGotShoot1 == false){
+            isGotShoot = false;
         }
     }
     private void OnTriggerEnter2D(Collider2D other){
         if (other.gameObject.layer == 7 && GrabHelper.activeInHierarchy == true){
-            x = 1;
-            y = 1;
+            IsGrab = true;
+            IsGrab1 = true;
         }if (other.gameObject.layer == 9){
             isGotShoot = true;
+            isGotShoot1 = true;
         }
     }
 
@@ -48,7 +52,7 @@ public class Letter : MonoBehaviour{
         if (isGotShoot == false){
             transform.position = Vector3.MoveTowards(transform.position, desiredPos, speed * Time.deltaTime);
         }if(Vector3.Distance(transform.position, desiredPos) < 1){
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0);
             isMoving = false;
         }
     }
