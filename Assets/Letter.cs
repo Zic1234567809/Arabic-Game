@@ -15,6 +15,7 @@ public class Letter : MonoBehaviour{
     public float minDistance;
     public Transform topleft;
     public Transform bottomright;
+    private bool inPlace;
 
     void Update(){
         StartCoroutine(Move());
@@ -34,8 +35,18 @@ public class Letter : MonoBehaviour{
             IsGrab = true;
             IsGrab1 = true;
         }if (other.gameObject.layer == 9){
-            isGotShoot = true;
-            isGotShoot1 = true;
+            StartCoroutine(GotShot());
+        }
+        if(other.gameObject.layer == 12)
+        {
+            inPlace = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if(other.gameObject.layer == 12)
+        {
+            inPlace = false;
         }
     }
 
@@ -54,6 +65,18 @@ public class Letter : MonoBehaviour{
         }if(Vector3.Distance(transform.position, desiredPos) < 1){
             yield return new WaitForSeconds(0);
             isMoving = false;
+        }
+    }
+
+    private IEnumerator GotShot()
+    {
+        isGotShoot = true;
+        isGotShoot1 = true;
+        yield return new WaitForSeconds(3);
+        if(!inPlace)
+        {
+            isGotShoot = false;
+            isGotShoot1 = false;
         }
     }
 }
