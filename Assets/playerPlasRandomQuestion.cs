@@ -104,7 +104,7 @@ public class playerPlasRandomQuestion : MonoBehaviour{
         } else {
             LetterPlace10.SetActive(true);
         }
-        if (PlaceForLerrer.LetterIn1 == listInsideList.list[randomItem].list[0] && PlaceForLerrer.LetterIn2 == listInsideList.list[randomItem].list[1] && PlaceForLerrer.LetterIn3 == listInsideList.list[randomItem].list[2] && PlaceForLerrer.LetterIn4 == listInsideList.list[randomItem].list[3] && PlaceForLerrer.LetterIn5 == listInsideList.list[randomItem].list[4] && PlaceForLerrer.LetterIn6 == listInsideList.list[randomItem].list[5] && PlaceForLerrer.LetterIn7 == listInsideList.list[randomItem].list[6] && PlaceForLerrer.LetterIn8 == listInsideList.list[randomItem].list[7] && PlaceForLerrer.LetterIn9 == listInsideList.list[randomItem].list[8] && PlaceForLerrer.LetterIn10 == listInsideList.list[randomItem].list[9]){
+        if (PlaceForLerrer.LetterIn1 == listInsideList.list[randomItem].list[0] && PlaceForLerrer.LetterIn2 == listInsideList.list[randomItem].list[1] && PlaceForLerrer.LetterIn3 == listInsideList.list[randomItem].list[2] && PlaceForLerrer.LetterIn4 == listInsideList.list[randomItem].list[3] && PlaceForLerrer.LetterIn5 == listInsideList.list[randomItem].list[4] && PlaceForLerrer.LetterIn6 == listInsideList.list[randomItem].list[5] && PlaceForLerrer.LetterIn7 == listInsideList.list[randomItem].list[6] && PlaceForLerrer.LetterIn8 == listInsideList.list[randomItem].list[7]){
             spawnpool.Remove(spawnpool[randomItem]);
             intList.Remove(intList[randomItem]);
             Debug.Log(spawnpool.Count);

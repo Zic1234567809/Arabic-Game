@@ -16,14 +16,20 @@ public class Letter : MonoBehaviour{
     public Transform topleft;
     public Transform bottomright;
     private bool inPlace;
+    Rigidbody2D m_Rigidbody;
 
-    void Update(){
+    void Start(){
+        m_Rigidbody = GetComponent<Rigidbody2D>();
+    }void Update(){
         StartCoroutine(Move());
         if (IsGrab1 == false){
             IsGrab = false;
         }if (IsGrab == true && isGotShoot == true){
             transform.position = (Vector3)GrabHelper.transform.position;
             transform.rotation = GrabHelper.transform.rotation;
+            m_Rigidbody.constraints = RigidbodyConstraints2D.None;
+        }else{
+            m_Rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         }if (GrabHelper.activeInHierarchy == false){
             IsGrab = false;
         }if (isGotShoot1 == false){
@@ -37,7 +43,7 @@ public class Letter : MonoBehaviour{
         }if (other.gameObject.layer == 9){
             StartCoroutine(GotShot());
         }
-        if(other.gameObject.layer == 12)
+        if(other.gameObject.layer == 8)
         {
             inPlace = true;
         }
@@ -71,12 +77,10 @@ public class Letter : MonoBehaviour{
     private IEnumerator GotShot()
     {
         isGotShoot = true;
-        isGotShoot1 = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         if(!inPlace)
         {
             isGotShoot = false;
-            isGotShoot1 = false;
         }
     }
 }
